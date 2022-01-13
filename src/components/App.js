@@ -1,8 +1,31 @@
-import '../styles/App.scss';
-import { useState } from 'react';
+import "../styles/App.scss";
+import { useState } from "react";
 
 function App() {
   const [numberOfError, setNumberOfError] = useState(0);
+  const [lastLetter, setLastLetter] = useState("");
+
+  const palabra = ["katakroker"];
+  let letterFails = [];
+  let letterRigth = [];
+
+  const handlerInput = (eve) => {
+    const valueInput = eve.currentTarget.value;
+    //const prueba = palabra.split(" ");
+    for(const item of palabra){
+      console.log(item);
+    }
+    if()
+    if(valueInput.includes(palabra)){ 
+      letterRigth.push(valueInput)
+    }else{
+      letterFails.push(valueInput);
+    }
+    /*setLastLetter({
+      
+    });*/
+    debugger;
+  };
 
   const handleClick = () => {
     setNumberOfError(numberOfError + 1);
@@ -21,11 +44,11 @@ function App() {
               <ul className="letters">
                 <li className="letter">k</li>
                 <li className="letter">a</li>
-                <li className="letter"></li>
+                <li className="letter">t</li>
                 <li className="letter">a</li>
                 <li className="letter">k</li>
                 <li className="letter">r</li>
-                <li className="letter"></li>
+                <li className="letter">o</li>
                 <li className="letter">k</li>
                 <li className="letter">e</li>
                 <li className="letter">r</li>
@@ -52,6 +75,8 @@ function App() {
                 type="text"
                 name="last-letter"
                 id="last-letter"
+                onChange={handlerInput}
+                value={lastLetter}
               />
             </form>
             <button onClick={handleClick}>Incrementar</button>
