@@ -15,12 +15,14 @@ function App() {
     for(const item of palabra){
       console.log(item);
     }
-    if()
+    let er = new RegExp('/a+z,A+Z/');
+
+    if(valueInput === er){
     if(valueInput.includes(palabra)){ 
       letterRigth.push(valueInput)
     }else{
       letterFails.push(valueInput);
-    }
+    }};
     /*setLastLetter({
       
     });*/
