@@ -1,32 +1,26 @@
-import "../styles/App.scss";
-import { useState } from "react";
+import '../styles/App.scss';
+import { useState } from 'react';
 
 function App() {
   const [numberOfError, setNumberOfError] = useState(0);
-  const [lastLetter, setLastLetter] = useState("");
+  const [lastLetter, setLastLetter] = useState('');
 
-  const palabra = ["katakroker"];
+  const world = 'katakroker';
+  let arrayWord = [];
   let letterFails = [];
   let letterRigth = [];
 
   const handlerInput = (eve) => {
     const valueInput = eve.currentTarget.value;
-    //const prueba = palabra.split(" ");
-    for(const item of palabra){
-      console.log(item);
+    arrayWord = world.split('');
+    let er = new RegExp(/[a-zA-Z]?/);
+    if (valueInput.match(er)) {
+      if (arrayWord.includes(valueInput)) {
+        letterRigth.push(valueInput);
+      } else {
+        letterFails.push(valueInput);
+      }
     }
-    let er = new RegExp('/a+z,A+Z/');
-
-    if(valueInput === er){
-    if(valueInput.includes(palabra)){ 
-      letterRigth.push(valueInput)
-    }else{
-      letterFails.push(valueInput);
-    }};
-    /*setLastLetter({
-      
-    });*/
-    debugger;
   };
 
   const handleClick = () => {
