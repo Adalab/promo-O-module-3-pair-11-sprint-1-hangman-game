@@ -3,25 +3,42 @@ import { useState } from 'react';
 
 function App() {
   const [numberOfError, setNumberOfError] = useState(0);
-  const [lastLetter, setLastLetter] = useState('');
+  const [word, setWord] = useState('katakroker');
+  const [userLetters, setUserLetters] = useState([]);
+  const [lastLetter, setLastLetter] = useState([]);
+  
 
-  const world = 'katakroker';
-  let arrayWord = [];
-  let letterFails = [];
-  let letterRigth = [];
+  let wordLetters;
 
   const handlerInput = (eve) => {
+    //escucho la letra de la usuaria
     const valueInput = eve.currentTarget.value;
-    arrayWord = world.split('');
-    let er = new RegExp(/[a-zA-Z]?/);
+    let er = new RegExp(/^[a-zA-ZáäéëíïóöúüÁÄÉËÍÏÓÖÚÜñÑ]?$/);
     if (valueInput.match(er)) {
-      if (arrayWord.includes(valueInput)) {
-        letterRigth.push(valueInput);
-      } else {
-        letterFails.push(valueInput);
-      }
-    }
-  };
+      setLastLetter(valueInput);
+      setUserLetters([...lastLetter]);
+  }
+  //guardo en userLetters la ultima letra introducida por el usuario.
+  
+};
+
+  const renderSolutionLetters = () =>{
+   wordLetters = word.split('');
+    return wordLetters.map((wordLetter,index) => {
+      return <li key={index} className = "letter">
+        <small>{wordLetter.includes(userLetters[userLetters.length - 1])?userLetters:[]}</small>
+        </li>
+    })
+  }
+
+  const renderErrorLetters = () =>{
+    const filter = userLetters.filter(x => x.includes(word));
+    filter.map((wordLetter, index) => {
+      return <li key={index} className="letter">
+        <small>{!wordLetter}</small>
+      </li>
+    })
+  }
 
   const handleClick = () => {
     setNumberOfError(numberOfError + 1);
@@ -38,26 +55,13 @@ function App() {
             <div className="solution">
               <h2 className="title">Solución:</h2>
               <ul className="letters">
-                <li className="letter">k</li>
-                <li className="letter">a</li>
-                <li className="letter">t</li>
-                <li className="letter">a</li>
-                <li className="letter">k</li>
-                <li className="letter">r</li>
-                <li className="letter">o</li>
-                <li className="letter">k</li>
-                <li className="letter">e</li>
-                <li className="letter">r</li>
+                {renderSolutionLetters()}
               </ul>
             </div>
             <div className="error">
               <h2 className="title">Letras falladas:</h2>
               <ul className="letters">
-                <li className="letter">f</li>
-                <li className="letter">q</li>
-                <li className="letter">h</li>
-                <li className="letter">p</li>
-                <li className="letter">x</li>
+                {renderErrorLetters()}
               </ul>
             </div>
             <form className="form">
