@@ -14,9 +14,11 @@ function App() {
     //escucho la letra de la usuaria
     const valueInput = eve.currentTarget.value;
     let er = new RegExp(/^[a-zA-ZáäéëíïóöúüÁÄÉËÍÏÓÖÚÜñÑ]?$/);
-    if (valueInput.match(er)) {
-      setLastLetter(valueInput);
-      setUserLetters([...lastLetter]);
+    if (er.test(valueInput)) {
+      console.log(er.test(valueInput));
+      setLastLetter(valueInput)
+      userLetters.push(lastLetter);
+      setUserLetters(userLetters); 
   }
   //guardo en userLetters la ultima letra introducida por el usuario.
   
@@ -24,18 +26,19 @@ function App() {
 
   const renderSolutionLetters = () =>{
    wordLetters = word.split('');
+  // const filter = wordLetters.filter(x => userLetters.includes(x) === true);
     return wordLetters.map((wordLetter,index) => {
       return <li key={index} className = "letter">
-        <small>{wordLetter.includes(userLetters[userLetters.length - 1])?userLetters:[]}</small>
+        <small>{userLetters.includes(wordLetter)?wordLetter:""}</small>
         </li>
     })
   }
 
   const renderErrorLetters = () =>{
-    const filter = userLetters.filter(x => x.includes(word));
-    filter.map((wordLetter, index) => {
+    const filter = userLetters.filter(x => word.includes(x) === false);
+    return filter.map((wordLetter, index) => {
       return <li key={index} className="letter">
-        <small>{!wordLetter}</small>
+        <small>{wordLetter}</small>
       </li>
     })
   }
